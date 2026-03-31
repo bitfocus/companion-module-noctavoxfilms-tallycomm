@@ -1,0 +1,19 @@
+{
+  "name": "companion-module-noctavoxfilms-tallycomm",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "main.js",
+  "author": "Noctavox Films",
+  "keywords": ["tally", "broadcast", "camera", "intercom"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues"
+  },
+  "dependencies": {
+    "@companion-module/base": "^1.12.1"
+  }
+}
