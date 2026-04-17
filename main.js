@@ -65,6 +65,15 @@ class TallyCommInstance extends InstanceBase {
 				tooltip: 'Nombre exacto de la sala. Debe coincidir con el que usan los camarógrafos.',
 				required: true,
 			},
+			{
+				type: 'textinput',
+				id: 'apiKey',
+				label: 'API Key (TALLY_SECRET)',
+				width: 12,
+				default: '',
+				placeholder: 'Dejar vacío si el servidor no la requiere',
+				tooltip: 'Clave de seguridad definida en el .env del servidor. Pedísela al admin de la instancia TallyComm.',
+			},
 		]
 	}
 
@@ -226,6 +235,12 @@ class TallyCommInstance extends InstanceBase {
 		})
 	}
 
+	_buildHeaders() {
+		const h = { 'Content-Type': 'application/json' }
+		if (this.config && this.config.apiKey) h['x-tallycomm-key'] = this.config.apiKey
+		return h
+	}
+
 	async sendTally(camera, bus) {
 		if (!this.room) {
 			this.log('warn', 'Sala no configurada — configura el nombre de sala en la conexión')
@@ -235,13 +250,18 @@ class TallyCommInstance extends InstanceBase {
 		try {
 			const response = await fetch(this.serverUrl + '/api/tally', {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: this._buildHeaders(),
 				body: JSON.stringify({ camera: camera, bus: bus, room: this.room }),
 				signal: AbortSignal.timeout(5000),
 			})
 			if (!response.ok) {
-				this.log('error', 'TallyComm HTTP ' + response.status)
-				this.updateStatus(InstanceStatus.UnknownError, 'HTTP ' + response.status)
+				if (response.status === 401) {
+					this.log('error', 'TallyComm 401 — revisa API Key en la config del módulo')
+					this.updateStatus(InstanceStatus.AuthenticationFailure, 'API Key inválida')
+				} else {
+					this.log('error', 'TallyComm HTTP ' + response.status)
+					this.updateStatus(InstanceStatus.UnknownError, 'HTTP ' + response.status)
+				}
 				return
 			}
 			this._isConnected = true
@@ -254,13 +274,14 @@ class TallyCommInstance extends InstanceBase {
 	}
 
 	checkConnection() {
-		fetch(this.serverUrl + '/api/tally', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ camera: 0, bus: 'ping', room: this.room || 'companion-check' }),
+		// Use /health (auth-free, always 200 when server is up).
+		// Avoids the old /api/tally ping that violated camera range validation.
+		fetch(this.serverUrl + '/health', {
+			method: 'GET',
 			signal: AbortSignal.timeout(5000),
 		})
-			.then(() => {
+			.then((r) => {
+				if (!r.ok) throw new Error('HTTP ' + r.status)
 				this._isConnected = true
 				this.updateStatus(InstanceStatus.Ok)
 				this.updateVariables()
