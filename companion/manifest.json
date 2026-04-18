@@ -1,22 +1,23 @@
 {
-  "id": "noctavoxfilms-tallycomm",
-  "name": "noctavoxfilms-tallycomm",
-  "shortname": "TallyComm",
-  "description": "Send PGM/PVW tally to smartphone cameras via TallyComm broadcast intercom — no hardware needed",
-  "version": "1.1.0",
-  "license": "MIT",
-  "repository": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm",
-  "bugs": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues",
-  "maintainers": [{"name": "Noctavox Films", "email": "hello@tallycomm.com"}],
-  "legacyIds": ["tallycomm"],
-  "runtime": {
-    "type": "node22",
-    "api": "nodejs-ipc",
-    "apiVersion": "1.12.1",
-    "entrypoint": "../main.js"
-  },
-  "manufacturer": "Noctavox Films",
-  "products": ["TallyComm"],
-  "keywords": ["tally", "broadcast", "camera", "intercom", "smartphone"],
-  "isPrerelease": false
+	"$schema": "https://raw.githubusercontent.com/bitfocus/companion-module-base/main/assets/manifest.schema.json",
+	"id": "noctavoxfilms-tallycomm",
+	"name": "noctavoxfilms-tallycomm",
+	"shortname": "TallyComm",
+	"description": "Send PGM/PVW tally to smartphone cameras via TallyComm broadcast intercom — no hardware needed",
+	"version": "1.2.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm.git",
+	"bugs": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues",
+	"maintainers": [{ "name": "Noctavox Films", "email": "hello@tallycomm.com" }],
+	"legacyIds": [],
+	"runtime": {
+		"type": "node22",
+		"api": "nodejs-ipc",
+		"apiVersion": "1.14.1",
+		"entrypoint": "../src/main.js"
+	},
+	"manufacturer": "Noctavox Films",
+	"products": ["TallyComm"],
+	"keywords": ["tally", "broadcast", "camera", "intercom", "smartphone"],
+	"isPrerelease": false
 }

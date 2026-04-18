@@ -1,19 +1,38 @@
 {
-  "name": "companion-module-noctavoxfilms-tallycomm",
-  "version": "1.1.0",
-  "license": "MIT",
-  "type": "commonjs",
-  "main": "main.js",
-  "author": "Noctavox Films",
-  "keywords": ["tally", "broadcast", "camera", "intercom"],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues"
-  },
-  "dependencies": {
-    "@companion-module/base": "^1.12.1"
-  }
+	"name": "companion-module-noctavoxfilms-tallycomm",
+	"version": "1.2.0",
+	"type": "commonjs",
+	"main": "src/main.js",
+	"license": "MIT",
+	"author": "Noctavox Films",
+	"keywords": [
+		"tally",
+		"broadcast",
+		"camera",
+		"intercom"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm.git"
+	},
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues"
+	},
+	"prettier": "@companion-module/tools/.prettierrc.json",
+	"packageManager": "yarn@4.12.0",
+	"engines": {
+		"node": "^22.20",
+		"yarn": "^4"
+	},
+	"scripts": {
+		"format": "prettier -w .",
+		"package": "companion-module-build"
+	},
+	"dependencies": {
+		"@companion-module/base": "~1.14.1"
+	},
+	"devDependencies": {
+		"@companion-module/tools": "^2.6.1",
+		"prettier": "^3.7.4"
+	}
 }
