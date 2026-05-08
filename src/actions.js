@@ -88,7 +88,14 @@ module.exports.UpdateActions = function (self) {
 			callback: async (action) => {
 				const cam = parseInt(action.options.camera)
 				const prev = self.currentPvw
-				if (prev > 0 && prev !== cam) await self.sendTally(prev, 'clear')
+				// Don't clear the previous PVW cam if it is currently on PGM. The
+				// server enforces "PGM wins over PVW" by ignoring set_pvw requests
+				// for cameras already on program — so locally `currentPvw` may point
+				// to a camera the server actually has on PGM only. Clearing it would
+				// erroneously kill the on-air tally.
+				if (prev > 0 && prev !== cam && prev !== self.currentPgm) {
+					await self.sendTally(prev, 'clear')
+				}
 				await self.sendTally(cam, 'preview')
 				self.currentPvw = cam
 				self.updateVariables()
