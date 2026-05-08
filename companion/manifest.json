@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm.git",
 	"bugs": "https://github.com/bitfocus/companion-module-noctavoxfilms-tallycomm/issues",
-	"maintainers": [{ "name": "Noctavox Films", "email": "hello@tallycomm.com" }],
+	"maintainers": [{ "name": "Noctavox", "email": "hello@tallycomm.com" }],
 	"legacyIds": [],
 	"runtime": {
 		"type": "node22",
@@ -16,7 +16,7 @@
 		"apiVersion": "1.14.1",
 		"entrypoint": "../src/main.js"
 	},
-	"manufacturer": "Noctavox Films",
+	"manufacturer": "Noctavox",
 	"products": ["TallyComm"],
 	"keywords": ["tally", "broadcast", "camera", "intercom", "smartphone"],
 	"isPrerelease": false
